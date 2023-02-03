@@ -1,0 +1,28 @@
+
+*ENCORE (tested for python3.6) *
+ENCORE computes a disease neighborhood in a protein-protein interaction network using experimental data about genes. The experimental data should include p-values for each gene, given by differential expression analysis, and a log fold change value. 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+* What it does *
+Given a protein-protein-interaction network and expression data for genes from experimental data, ENCORE computes a disease neighborhood using p-values given by differential expression analysis and log fold change value for the genes. The neighborhood is divided into core and peripheral genes, where the core genes have higher fold change value and are therefore more related to the disease compared to the peripheral genes. However, the peripheral genes percolate the perturbations from the core genes into the interactome. The core genes are very specific regarding the disease, whereas the peripheral genes can be used to find similar diseases. The core and peripheral genes present the disease neighborhood together. 
+
+ENCORE identifes the core and peripheral genes and produces two text files including these genes, as well as a figure showing the fold change values vs. the z-scores given by the largest connected components. More details on the  method can be found in the article "The periphery and the core properties explain the omnigenic model in the human interactome"
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+* Usage *
+INPUT: 
+- DEfilename: 				Includes the experimental data. Three columns, seperated by tab (\t). column 1) gene name, string (like in the network), 2) p-value (float), 3) log fold change 					(float). If row	starts with '#': description, row will be ignored
+- PPIfilename: 				Underlying interactome. Two columns, seperated by tab (\t). Each row gives an aedge (column 1) <-> (column 2))
+
+OUTPUT:
+- File 'disease_neighborhood.txt': 	disease neighborhood given as network. Two columns, seperated by tab (\t). Each row gives an aedge (column 1) <-> (column 2))
+- File 'core_and_periphery_genes.txt':  list of genes. Two columns, seperatedby tab (\t). 1) column: name of gene as in the network, 2) column: 'core' or 'periphery'
+- Figure: 				Showing the zscores vs the fold changes and the fitting curve
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+* Example: *
+
+ENCORE_userfriendly.Pattern_detection('examples/Pulmonary hypertension GSE703.txt', 'newHnet2015namesonly')
